@@ -1,0 +1,135 @@
+<script>
+
+function showPage(page) {
+    document.querySelectorAll(".page").forEach(function(section) {
+        section.classList.remove("active");
+    });
+
+    const target = document.getElementById(page);
+
+    if (target) {
+        target.classList.add("active");
+    }
+
+    const nav = document.getElementById("nav");
+
+    if (nav) {
+        nav.classList.remove("open");
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+function toggleMenu() {
+    const nav = document.getElementById("nav");
+
+    if (nav) {
+        nav.classList.toggle("open");
+    }
+}
+
+
+function login() {
+    const userElement = document.getElementById("loginUser");
+    const passwordElement = document.getElementById("loginPassword");
+    const message = document.getElementById("loginMessage");
+
+    if (!userElement || !passwordElement || !message) {
+        return;
+    }
+
+    const user = userElement.value.trim();
+    const password = passwordElement.value.trim();
+
+    if (!user || !password) {
+        message.innerHTML = `
+            <div style="
+                margin-top:12px;
+                padding:12px;
+                border-radius:10px;
+                background:#fff1e6;
+                color:#c85b00;
+                font-size:12px;
+            ">
+                Preencha usuário e senha.
+            </div>
+        `;
+
+        return;
+    }
+
+    message.innerHTML = `
+        <div style="
+            margin-top:12px;
+            padding:12px;
+            border-radius:10px;
+            background:#eaf8f1;
+            color:#168454;
+            font-size:12px;
+        ">
+            Interface de login preparada.
+            A autenticação real será conectada ao backend.
+        </div>
+    `;
+}
+
+
+function searchItems(type) {
+    const inputElement = document.getElementById("searchDeveres");
+
+    if (!inputElement) {
+        return;
+    }
+
+    const input = inputElement.value.toLowerCase();
+
+    const items = document.querySelectorAll(
+        "#listaDeveres .card"
+    );
+
+    items.forEach(function(item) {
+        const text = item.innerText.toLowerCase();
+
+        item.style.display = text.includes(input)
+            ? "block"
+            : "none";
+    });
+}
+
+</script>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+    "https://wvrnbqxfdvfysrcxfqmi.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_K9-cQG6jwXk5Ja8yyMGPeQ_0W76kw_4";
+
+let supabaseClient = null;
+
+if (
+    window.supabase &&
+    SUPABASE_URL &&
+    SUPABASE_PUBLISHABLE_KEY
+) {
+    supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
+}
+
+</script>
+
+
+</body>
+</html>
